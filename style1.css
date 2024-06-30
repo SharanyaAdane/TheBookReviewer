@@ -1,0 +1,73 @@
+html{
+    background-color:#F3D0D7;
+}
+h1{
+    font-family:"Lucida Console", "Courier New", monospace;
+}
+.tab_container{
+    display: flex;
+    background-color: #5AB2FF;
+    padding: 10px;
+}
+.tab{
+    margin: 0 20px;
+    padding: 10px 20px;
+    background-color: #FFF9D0;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-family:'Josefin Sans' ;
+}
+.tab:hover {
+    background-color: #aaa;
+}
+q{
+    font-style: italic;
+    font-family: 'Dancing Script';
+    font-size: large;
+
+}
+cite{
+    margin-left: 50px;
+    color: black;
+}
+.about{
+    margin: 30px 30px;
+    padding: 10px 20px;
+    background-color: #5AB2FF;
+    border: none;
+    
+    text-decoration: none;
+    color: black;
+    border-radius: 5px;
+    
+}
+.about h2{
+    text-align: left;
+    line-height: 1.6;
+    margin-top: 10px;
+    color: black;
+    margin-left: 10px;
+    font-family:"Signika Negative" ;
+    font-size: medium;
+}
+.about p{
+    
+    line-height: 1.6;
+    margin-top: 10px;
+    color: black;
+    margin-left: 10px;
+    font-family:"Signika Negative" ;
+    font-size: medium;
+    border-radius: 5px;
+}
+/*.box{
+    border: 1px solid #FFF9D0;
+    width: 400px;
+    padding :20px;
+    margin:20px;
+}
+*/

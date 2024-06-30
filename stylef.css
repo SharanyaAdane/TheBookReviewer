@@ -1,0 +1,121 @@
+
+body {
+    font-family: 'Josefin Sans', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.top {
+    text-align: center;
+    margin: 20px 0;
+}
+
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3em;
+    margin-bottom: 0.5em;
+    background-color: #E1AFD1;
+}
+
+hr {
+    border-top: 2px solid #333;
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 1.5em;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.card.custom-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card.custom-card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card.custom-card .card-body {
+    padding: 15px;
+}
+
+.card.custom-card .card-title {
+    font-size: 1.25em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.card.custom-card .btn {
+    background-color: #007bff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 0.875em;
+    transition: background-color 0.3s;
+}
+
+.card.custom-card .btn:hover {
+    background-color: #0056b3;
+}
+
+/* Adjusting the card size */
+.col-md-3.mb-4 {
+    max-width: 250px;
+    margin: 10px auto;
+}
+
+@media (min-width: 768px) {
+    .col-md-3.mb-4 {
+        max-width: 300px;
+    }
+}
+
+/* Video styling */
+.video-container {
+    position: fixed;
+    top: 100px; /* Start below the hr */
+    bottom: 0;
+    width: 100px; 
+    z-index: 1;
+    overflow: hidden;
+}
+
+.video-container.left {
+    left: 10px;
+    position: fixed;
+    margin-bottom: 20px;
+}
+
+.video-container.right {
+    right: 10px;
+    position: fixed;
+    margin-bottom: 20px;
+}
+
+.video-container video {
+    height: 100%;
+    width: auto;
+    display: block;
+    object-fit: cover;
+}
+
+
+.container {
+    position: relative;
+    z-index: 10;
+    margin-left: 180px; 
+    margin-right: 180px;
+}

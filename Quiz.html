@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: 'Josefin Sans', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            background-color: #E1AFD1;
+            border-radius: 10px;
+            margin: 10px;
+        }
+        
+        .header img {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+        }
+        
+        .header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3em;
+        }
+        
+        .question {
+            font-size: 1.2em;
+            margin: 30px 20px;
+            text-align: left;
+        }
+        
+        .options {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+        
+        .options li {
+            margin: 10px 0;
+        }
+        
+        .correct-answer {
+            background-color: lightgreen;
+        }
+        
+        .incorrect-answer {
+            background-color: lightcoral;
+        }
+        
+        #submit {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #submit:hover {
+            background-color: #218838;
+        }
+        
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="Brain-and-Lightbulb.gif" alt="Glowing Bulb">
+        <h1>Quiz</h1>
+    </div>
+ 
+    <div id="quiz"></div>
+    <button id="submit">Submit</button>
+    <div id="result"></div>
+
+    <script>
+        const quizData = [
+            // Easy Questions
+            {
+                question: "Which character in 'Harry Potter' is known as 'The Boy Who Lived'?",
+                options: ["Ron Weasley", "Draco Malfoy", "Harry Potter", "Neville Longbottom"],
+                answer: "Harry Potter"
+            },
+            {
+                question: "Who is the author of 'The Great Gatsby'?",
+                options: ["Ernest Hemingway", "F. Scott Fitzgerald", "William Faulkner", "John Steinbeck"],
+                answer: "F. Scott Fitzgerald"
+            },
+            {
+                question: "In which book does the character Scout Finch appear?",
+                options: ["1984", "Atlas Shrugged", "To Kill a Mockingbird", "Little Women"],
+                answer: "To Kill a Mockingbird"
+            },
+            {
+                question: "Who wrote the play 'Macbeth'?",
+                options: ["George Bernard Shaw", "Arthur Miller", "William Shakespeare", "Tennessee Williams"],
+                answer: "William Shakespeare"
+            },
+            // Medium Questions
+            {
+                question: "What is the name of the land where Gulliver encounters the tiny people in Jonathan Swift's 'Gulliver's Travels'?",
+                options: ["Lilliput", "Brobdingnag", "Laputa", "Houyhnhnms"],
+                answer: "Lilliput"
+            },
+            {
+                question: "Which famous dystopian novel features the character Winston Smith?",
+                options: ["Brave New World", "Fahrenheit 451", "1984", "The Handmaid's Tale"],
+                answer: "1984"
+            },
+            {
+                question: "Who wrote the novel 'Jane Eyre'?",
+                options: ["Jane Austen", "Charlotte Brontë", "Emily Brontë", "Anne Brontë"],
+                answer: "Charlotte Brontë"
+            },
+            {
+                question: "Which play by Arthur Miller is set during the Salem witch trials?",
+                options: ["Death of a Salesman", "The Crucible", "A View from the Bridge", "All My Sons"],
+                answer: "The Crucible"
+            },
+            {
+                question: "In George Orwell's 'Animal Farm', which animal is the leader who becomes a tyrant?",
+                options: ["Snowball", "Napoleon", "Boxer", "Squealer"],
+                answer: "Napoleon"
+            },
+            {
+                question: "Which novel by Mark Twain features the characters Tom Sawyer and Huck Finn?",
+                options: ["The Adventures of Tom Sawyer", "The Adventures of Huckleberry Finn", "A Connecticut Yankee in King Arthur's Court", "Pudd'nhead Wilson"],
+                answer: "The Adventures of Tom Sawyer"
+            },
+            {
+                question: "Which novel by John Steinbeck is set during the Great Depression and follows the Joad family?",
+                options: ["East of Eden", "The Grapes of Wrath", "Of Mice and Men", "Cannery Row"],
+                answer: "The Grapes of Wrath"
+            },
+            // Hard Questions
+            {
+                question: "Who is the author of 'Ulysses,' a novel that parallels the structure of Homer's 'Odyssey'?",
+                options: ["James Joyce", "T.S. Eliot", "Ezra Pound", "D.H. Lawrence"],
+                answer: "James Joyce"
+            },
+            {
+                question: "Which Henry James novel tells the story of an American girl who travels to Europe and falls victim to its rigid social structures?",
+                options: ["The Turn of the Screw", "The Portrait of a Lady", "Daisy Miller", "Washington Square"],
+                answer: "The Portrait of a Lady"
+            },
+            {
+                question: "In Herman Melville's 'Moby-Dick,' what is the name of the ship on which Ishmael sails?",
+                options: ["Pequod", "Essex", "Beagle", "Nautilus"],
+                answer: "Pequod"
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz');
+        const submitButton = document.getElementById('submit');
+        const resultContainer = document.getElementById('result');
+        let fullySubmitted = false;
+
+        function buildQuiz() {
+            const output = [];
+            quizData.forEach((currentQuestion, questionNumber) => {
+                const options = [];
+                currentQuestion.options.forEach(option => {
+                    options.push(
+                        `<li>
+                            <label>
+                                <input type="radio" name="question${questionNumber}" value="${option}">
+                                ${option}
+                            </label>
+                        </li>`
+                    );
+                });
+                output.push(
+                    `<div class="question">${currentQuestion.question}</div>
+                    <ul class="options">${options.join('')}</ul>`
+                );
+            });
+            quizContainer.innerHTML = output.join('');
+        }
+
+        function showResults() {
+            const answerContainers = quizContainer.querySelectorAll('.options');
+            let score = 0;
+            const missedQuestions = [];
+            quizData.forEach((currentQuestion, questionNumber) => {
+                const answerContainer = answerContainers[questionNumber];
+                const selector = `input[name=question${questionNumber}]:checked`;
+                const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+
+                if (!userAnswer) {
+                    missedQuestions.push(questionNumber + 1);
+                } else if (userAnswer === currentQuestion.answer) {
+                    score++;
+                }
+
+                const options = answerContainer.querySelectorAll('input');
+                options.forEach(option => {
+                    if (fullySubmitted) {
+                        if (option.value === currentQuestion.answer) {
+                            option.parentNode.classList.add('correct-answer');
+                        } else if (option.checked && option.value !== currentQuestion.answer) {
+                            option.parentNode.classList.add('incorrect-answer');
+                        }
+                        option.disabled = true;
+                    }
+                });
+            });
+
+            if (missedQuestions.length > 0 && !fullySubmitted) {
+                const revisit = confirm(`You missed the following questions: ${missedQuestions.join(', ')}. Would you like to revisit them?`);
+                if (revisit) {
+                    return;
+                }
+            }
+
+            fullySubmitted = true;
+            resultContainer.innerHTML = `You scored ${score} out of ${quizData.length}`;
+
+            quizData.forEach((currentQuestion, questionNumber) => {
+                const answerContainer = answerContainers[questionNumber];
+                const options = answerContainer.querySelectorAll('input');
+                options.forEach(option => {
+                    if (option.value === currentQuestion.answer) {
+                        option.parentNode.classList.add('correct-answer');
+                    } else if (option.checked && option.value !== currentQuestion.answer) {
+                        option.parentNode.classList.add('incorrect-answer');
+                    }
+                    option.disabled = true;
+                });
+            });
+        }
+
+        buildQuiz();
+        submitButton.addEventListener('click', showResults);
+    </script>
+</body>
+</html>
